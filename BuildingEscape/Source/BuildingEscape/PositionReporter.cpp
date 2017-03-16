@@ -21,8 +21,10 @@ void UPositionReporter::BeginPlay()
 	// "Super" handles everything up the inheritance tree first, then run my code
 	Super::BeginPlay();
 
-	// ...
-	
+	// Added code from lecture
+	FString ObjectName = GetOwner()->GetName();
+	FString ObjectPos = GetOwner()->GetTransform().GetLocation().ToString();
+	UE_LOG(LogTemp, Warning, TEXT("%s is at %s"), *ObjectName, *ObjectPos);
 }
 
 
