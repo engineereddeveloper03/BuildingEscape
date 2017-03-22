@@ -25,4 +25,6 @@ public:
 
 private:
 	float Reach = 100.0f; // How far ahead of the player we can reach in cm
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 };
