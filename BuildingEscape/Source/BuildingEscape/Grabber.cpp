@@ -31,10 +31,28 @@ void UGrabber::BeginPlay()
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s does not include the component: PhysicsHandle.  Please add to the object to run correctly."), *GetOwner()->GetName())
+		UE_LOG(LogTemp, Error, TEXT("%s does not include the component: PhysicsHandle."), *GetOwner()->GetName())
+	}
+
+	/// Look for attached Input Component (only appears at run time)
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		/// Pawn Input component is found
+		UE_LOG(LogTemp, Warning, TEXT("Input component found."))
+		/// Bind the input action
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s does not include the component: InputComponent."), *GetOwner()->GetName())
 	}
 }
 
+void UGrabber::Grab()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"))
+}
 
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
